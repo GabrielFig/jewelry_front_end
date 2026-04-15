@@ -1,0 +1,37 @@
+{
+  "name": "jewelry-shop-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "15.1.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "axios": "^1.7.9",
+    "zustand": "^5.0.2",
+    "react-hook-form": "^7.54.0",
+    "zod": "^3.24.1",
+    "@hookform/resolvers": "^3.9.1",
+    "js-cookie": "^3.0.5",
+    "lucide-react": "^0.468.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "@types/node": "^22.10.1",
+    "@types/js-cookie": "^3.0.6",
+    "tailwindcss": "^3.4.17",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.0"
+  }
+}
