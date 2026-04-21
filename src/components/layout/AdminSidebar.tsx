@@ -3,17 +3,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, Package, Tag, ShoppingBag, Archive } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const links = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { href: "/admin/products", label: "Products", icon: Package },
-  { href: "/admin/categories", label: "Categories", icon: Tag },
-  { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
-  { href: "/admin/inventory", label: "Inventory", icon: Archive },
-];
+import { useT } from "@/hooks/useT";
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const t = useT();
+
+  const links = [
+    { href: "/admin", label: t.admin.dashboard, icon: LayoutDashboard, exact: true },
+    { href: "/admin/products", label: t.admin.products, icon: Package },
+    { href: "/admin/categories", label: t.admin.categories, icon: Tag },
+    { href: "/admin/orders", label: t.admin.orders, icon: ShoppingBag },
+    { href: "/admin/inventory", label: t.admin.inventory, icon: Archive },
+  ];
+
   return (
     <aside className="w-56 shrink-0 hidden lg:block">
       <nav className="sticky top-20 space-y-1">

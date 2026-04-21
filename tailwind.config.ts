@@ -6,16 +6,51 @@ const config: Config = {
     extend: {
       colors: {
         gold: {
-          DEFAULT: "#B8960C",
+          DEFAULT: "#B5860D",
           light: "#D4AF37",
           dark: "#8B6914",
         },
-        cream: "#FAF9F6",
-        ink: "#111111",
+        rose: {
+          DEFAULT: "#C2728A",
+          light: "#F5E4E9",
+          dark: "#9D5F73",
+        },
+        cream: "#FAF6F1",
+        blush: "#FDF0F3",
+        ink: "#1C1917",
+        muted: "#78716C",
       },
       fontFamily: {
         serif: ["var(--font-playfair)", "Georgia", "serif"],
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+      },
+      backgroundImage: {
+        "hero-grain":
+          "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E\")",
+      },
+      keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-12px)" },
+        },
+        floatReverse: {
+          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
+          "50%": { transform: "translateY(10px) rotate(6deg)" },
+        },
+        shimmer: {
+          "0%, 100%": { opacity: "0.35" },
+          "50%": { opacity: "0.75" },
+        },
+        fadeUp: {
+          from: { opacity: "0", transform: "translateY(20px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        float: "float 7s ease-in-out infinite",
+        "float-slow": "floatReverse 9s ease-in-out infinite",
+        shimmer: "shimmer 4s ease-in-out infinite",
+        "fade-up": "fadeUp 0.6s ease forwards",
       },
     },
   },
