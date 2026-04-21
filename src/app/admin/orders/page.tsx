@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { customersApi, ordersApi } from "@/lib/api";
+import { useT } from "@/hooks/useT";
 import { formatPrice, ORDER_STATUS_COLORS } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -9,6 +10,7 @@ import type { Order } from "@/types";
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const t = useT();
 
   useEffect(() => {
     (async () => {
@@ -36,17 +38,17 @@ export default function AdminOrdersPage() {
 
   return (
     <div>
-      <h1 className="font-serif text-3xl font-bold text-ink mb-8">Orders</h1>
+      <h1 className="font-serif text-3xl font-bold text-ink mb-8">{t.admin.orders}</h1>
       {loading ? (
         <div className="space-y-2">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-14 rounded-lg bg-ink/5 animate-pulse" />)}</div>
       ) : orders.length === 0 ? (
-        <p className="text-center text-ink/40 py-16">No orders yet.</p>
+        <p className="text-center text-ink/40 py-16">{t.admin.noOrders}</p>
       ) : (
         <div className="rounded-xl border border-ink/10 bg-white overflow-hidden">
           <table className="w-full text-sm">
             <thead className="bg-cream border-b border-ink/10">
               <tr>
-                {["Order ID", "Customer", "Total", "Status", "Actions"].map((h) => (
+                {[t.admin.orderId, t.admin.customer, t.admin.total, t.admin.status, t.admin.actions].map((h) => (
                   <th key={h} className="px-4 py-3 text-left font-medium text-ink/50">{h}</th>
                 ))}
               </tr>
@@ -65,12 +67,12 @@ export default function AdminOrdersPage() {
                   <td className="px-4 py-3 flex gap-2">
                     {o.status === "paid" && (
                       <Button size="sm" variant="secondary" onClick={() => action(o.id, "ship")}>
-                        Ship
+                        {t.admin.ship}
                       </Button>
                     )}
                     {["pending", "confirmed", "paid"].includes(o.status) && (
                       <Button size="sm" variant="danger" onClick={() => action(o.id, "cancel")}>
-                        Cancel
+                        {t.admin.cancel}
                       </Button>
                     )}
                   </td>

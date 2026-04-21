@@ -1,11 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { productsApi, categoriesApi, inventoryApi } from "@/lib/api";
+import { useT } from "@/hooks/useT";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Package, Tag, Archive } from "lucide-react";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({ products: 0, categories: 0, batches: 0 });
+  const t = useT();
 
   useEffect(() => {
     Promise.all([
@@ -18,14 +20,14 @@ export default function AdminDashboard() {
   }, []);
 
   const cards = [
-    { label: "Products", value: stats.products, icon: Package, color: "text-blue-600 bg-blue-50" },
-    { label: "Categories", value: stats.categories, icon: Tag, color: "text-green-600 bg-green-50" },
-    { label: "Batches", value: stats.batches, icon: Archive, color: "text-purple-600 bg-purple-50" },
+    { label: t.admin.products, value: stats.products, icon: Package, color: "text-blue-600 bg-blue-50" },
+    { label: t.admin.categories, value: stats.categories, icon: Tag, color: "text-green-600 bg-green-50" },
+    { label: t.admin.inventory, value: stats.batches, icon: Archive, color: "text-purple-600 bg-purple-50" },
   ];
 
   return (
     <div>
-      <h1 className="font-serif text-3xl font-bold text-ink mb-8">Dashboard</h1>
+      <h1 className="font-serif text-3xl font-bold text-ink mb-8">{t.admin.dashboard}</h1>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
         {cards.map(({ label, value, icon: Icon, color }) => (
           <Card key={label}>
@@ -41,9 +43,7 @@ export default function AdminDashboard() {
           </Card>
         ))}
       </div>
-      <div className="text-sm text-ink/50">
-        Use the sidebar to manage your store.
-      </div>
+      <div className="text-sm text-ink/50">{t.admin.manageStore}</div>
     </div>
   );
 }

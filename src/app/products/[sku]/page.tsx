@@ -5,6 +5,7 @@ import { ShoppingBag, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { productsApi } from "@/lib/api";
 import { useCartStore } from "@/store/cart.store";
+import { useT } from "@/hooks/useT";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import type { Product } from "@/types";
@@ -22,6 +23,7 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [added, setAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
+  const t = useT();
 
   useEffect(() => {
     productsApi
@@ -31,8 +33,8 @@ export default function ProductDetailPage() {
       .finally(() => setLoading(false));
   }, [sku]);
 
-  if (loading) return <div className="max-w-5xl mx-auto px-4 py-16 text-center text-ink/50">Loading…</div>;
-  if (!product) return <div className="max-w-5xl mx-auto px-4 py-16 text-center text-ink/50">Product not found.</div>;
+  if (loading) return <div className="max-w-5xl mx-auto px-4 py-16 text-center text-ink/50">{t.productDetail.loading}</div>;
+  if (!product) return <div className="max-w-5xl mx-auto px-4 py-16 text-center text-ink/50">{t.productDetail.notFound}</div>;
 
   const material = String(product.attributes?.material ?? "").toLowerCase();
   const gradient =
@@ -48,15 +50,13 @@ export default function ProductDetailPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-12">
       <Link href="/products" className="inline-flex items-center gap-1 text-sm text-ink/50 hover:text-gold mb-8">
-        <ArrowLeft className="w-4 h-4" /> Back to Collections
+        <ArrowLeft className="w-4 h-4" /> {t.productDetail.backToCollections}
       </Link>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Image */}
         <div className={`rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center aspect-square text-8xl opacity-60`}>
           💎
         </div>
 
-        {/* Info */}
         <div className="flex flex-col gap-5">
           <div>
             <p className="text-xs tracking-widest uppercase text-gold mb-1">SKU: {product.sku}</p>
@@ -67,7 +67,6 @@ export default function ProductDetailPage() {
           </p>
           <p className="text-ink/60 leading-relaxed">{product.description}</p>
 
-          {/* Attributes */}
           {Object.keys(product.attributes).length > 0 && (
             <div className="rounded-xl border border-ink/10 overflow-hidden">
               <table className="w-full text-sm">
@@ -89,7 +88,7 @@ export default function ProductDetailPage() {
 
           <Button size="lg" onClick={handleAdd} className="mt-2">
             <ShoppingBag className="w-5 h-5" />
-            {added ? "Added to Cart!" : "Add to Cart"}
+            {added ? t.productDetail.added : t.productDetail.addToCart}
           </Button>
         </div>
       </div>

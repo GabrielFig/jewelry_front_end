@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Plus, Trash2 } from "lucide-react";
 import { productsApi } from "@/lib/api";
+import { useT } from "@/hooks/useT";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -11,6 +12,7 @@ import type { Product } from "@/types";
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const t = useT();
 
   const load = () => {
     productsApi.list({ active_only: false }).then((r) => setProducts(r.data)).finally(() => setLoading(false));
@@ -25,9 +27,9 @@ export default function AdminProductsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-serif text-3xl font-bold text-ink">Products</h1>
+        <h1 className="font-serif text-3xl font-bold text-ink">{t.admin.products}</h1>
         <Link href="/admin/products/new">
-          <Button size="sm"><Plus className="w-4 h-4" /> New Product</Button>
+          <Button size="sm"><Plus className="w-4 h-4" /> {t.admin.newProduct}</Button>
         </Link>
       </div>
       {loading ? (
@@ -37,7 +39,7 @@ export default function AdminProductsPage() {
           <table className="w-full text-sm">
             <thead className="bg-cream border-b border-ink/10">
               <tr>
-                {["SKU", "Name", "Price", "Status", ""].map((h) => (
+                {["SKU", t.admin.name, t.admin.price, t.admin.status, ""].map((h) => (
                   <th key={h} className="px-4 py-3 text-left font-medium text-ink/50">{h}</th>
                 ))}
               </tr>
@@ -50,7 +52,7 @@ export default function AdminProductsPage() {
                   <td className="px-4 py-3">{formatPrice(p.price_amount, p.price_currency)}</td>
                   <td className="px-4 py-3">
                     <Badge className={p.is_active ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}>
-                      {p.is_active ? "Active" : "Inactive"}
+                      {p.is_active ? t.admin.active : t.admin.inactive}
                     </Badge>
                   </td>
                   <td className="px-4 py-3">

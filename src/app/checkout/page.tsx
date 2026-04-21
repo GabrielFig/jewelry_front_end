@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useCartStore } from "@/store/cart.store";
 import { useAuthStore } from "@/store/auth.store";
+import { useT } from "@/hooks/useT";
 import { ordersApi, customersApi } from "@/lib/api";
 import { formatPrice } from "@/lib/utils";
 import { Input } from "@/components/ui/Input";
@@ -25,6 +26,7 @@ function CheckoutForm() {
   const router = useRouter();
   const { items, totalAmount, clearCart } = useCartStore();
   const { user } = useAuthStore();
+  const t = useT();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const currency = items[0]?.currency ?? "USD";
@@ -60,7 +62,7 @@ function CheckoutForm() {
       router.push(`/account/orders?success=${paid.id}`);
     } catch (e: unknown) {
       const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
-      setError(msg ?? "Something went wrong. Please try again.");
+      setError(msg ?? t.checkout.error);
     } finally {
       setLoading(false);
     }
@@ -74,23 +76,23 @@ function CheckoutForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-2 gap-10">
       <div className="space-y-5">
-        <h2 className="font-serif text-xl font-semibold text-ink">Shipping Information</h2>
-        <Input label="Full name" error={errors.name?.message} {...register("name")} />
-        <Input label="Email" type="email" error={errors.email?.message} {...register("email")} />
-        <Input label="Street address" error={errors.street?.message} {...register("street")} />
+        <h2 className="font-serif text-xl font-semibold text-ink">{t.checkout.shippingInfo}</h2>
+        <Input label={t.checkout.fullName} error={errors.name?.message} {...register("name")} />
+        <Input label={t.checkout.email} type="email" error={errors.email?.message} {...register("email")} />
+        <Input label={t.checkout.streetAddress} error={errors.street?.message} {...register("street")} />
         <div className="grid grid-cols-2 gap-4">
-          <Input label="City" error={errors.city?.message} {...register("city")} />
-          <Input label="Postal code" error={errors.postal_code?.message} {...register("postal_code")} />
+          <Input label={t.checkout.city} error={errors.city?.message} {...register("city")} />
+          <Input label={t.checkout.postalCode} error={errors.postal_code?.message} {...register("postal_code")} />
         </div>
-        <Input label="Country" error={errors.country?.message} {...register("country")} />
-        <h2 className="font-serif text-xl font-semibold text-ink pt-4">Payment</h2>
+        <Input label={t.checkout.country} error={errors.country?.message} {...register("country")} />
+        <h2 className="font-serif text-xl font-semibold text-ink pt-4">{t.checkout.payment}</h2>
         <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-          ✓ Secure mock payment — no real charge will be made.
+          {t.checkout.mockPayment}
         </div>
         {error && <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
       </div>
       <div className="rounded-xl border border-ink/10 bg-white p-6 h-fit space-y-4">
-        <h2 className="font-serif text-xl font-semibold text-ink">Order Summary</h2>
+        <h2 className="font-serif text-xl font-semibold text-ink">{t.checkout.orderSummary}</h2>
         {items.map((item) => (
           <div key={item.sku} className="flex justify-between text-sm">
             <span className="text-ink/70">{item.name} × {item.quantity}</span>
@@ -98,19 +100,20 @@ function CheckoutForm() {
           </div>
         ))}
         <div className="border-t border-ink/10 pt-4 flex justify-between font-semibold text-ink">
-          <span>Total</span>
+          <span>{t.checkout.total}</span>
           <span>{formatPrice(totalAmount(), currency)}</span>
         </div>
-        <Button type="submit" className="w-full" size="lg" loading={loading}>Place Order</Button>
+        <Button type="submit" className="w-full" size="lg" loading={loading}>{t.checkout.placeOrder}</Button>
       </div>
     </form>
   );
 }
 
 export default function CheckoutPage() {
+  const t = useT();
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-12">
-      <h1 className="font-serif text-4xl font-bold text-ink mb-8">Checkout</h1>
+      <h1 className="font-serif text-4xl font-bold text-ink mb-8">{t.checkout.title}</h1>
       <Suspense fallback={<div className="h-96 animate-pulse bg-ink/5 rounded-xl" />}>
         <CheckoutForm />
       </Suspense>

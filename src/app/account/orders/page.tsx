@@ -3,6 +3,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ordersApi } from "@/lib/api";
 import { useAuthStore } from "@/store/auth.store";
+import { useT } from "@/hooks/useT";
 import { formatPrice, ORDER_STATUS_COLORS } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardBody, CardHeader } from "@/components/ui/Card";
@@ -12,13 +13,12 @@ function OrdersContent() {
   const { user } = useAuthStore();
   const params = useSearchParams();
   const successId = params.get("success");
+  const t = useT();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user) return;
-    // We fetch by customer — find customer id via orders endpoint indirectly
-    // For demo: we just try to list by the user id (customer_id = user.id in ideal flow)
     ordersApi
       .listByCustomer(user.id)
       .then((r) => setOrders(r.data))
@@ -28,11 +28,11 @@ function OrdersContent() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
-      <h1 className="font-serif text-4xl font-bold text-ink mb-8">My Orders</h1>
+      <h1 className="font-serif text-4xl font-bold text-ink mb-8">{t.orders.title}</h1>
 
       {successId && (
         <div className="mb-6 rounded-xl bg-green-50 border border-green-200 px-5 py-4 text-green-700 text-sm">
-          ✓ Order placed successfully! Order ID: <strong>{successId}</strong>
+          {t.orders.successPrefix} <strong>{successId}</strong>
         </div>
       )}
 
@@ -43,7 +43,7 @@ function OrdersContent() {
           ))}
         </div>
       ) : orders.length === 0 ? (
-        <p className="text-center text-ink/50 py-16">No orders yet.</p>
+        <p className="text-center text-ink/50 py-16">{t.orders.noOrders}</p>
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
@@ -65,7 +65,7 @@ function OrdersContent() {
                     </div>
                   ))}
                   <div className="border-t border-ink/10 pt-2 flex justify-between font-semibold">
-                    <span>Total</span>
+                    <span>{t.orders.total}</span>
                     <span>{formatPrice(order.total_amount, order.total_currency)}</span>
                   </div>
                 </div>
@@ -79,8 +79,9 @@ function OrdersContent() {
 }
 
 export default function OrdersPage() {
+  const t = useT();
   return (
-    <Suspense fallback={<div className="mx-auto max-w-4xl px-4 py-12 text-ink/40">Loading…</div>}>
+    <Suspense fallback={<div className="mx-auto max-w-4xl px-4 py-12 text-ink/40">{t.orders.loading}</div>}>
       <OrdersContent />
     </Suspense>
   );

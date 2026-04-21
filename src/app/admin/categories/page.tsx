@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { categoriesApi } from "@/lib/api";
+import { useT } from "@/hooks/useT";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Card, CardBody } from "@/components/ui/Card";
@@ -11,6 +12,7 @@ export default function AdminCategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const t = useT();
   const { register, handleSubmit, reset, formState: { errors } } = useForm<{ name: string; description: string }>();
 
   const load = () => categoriesApi.list().then((r) => setCategories(r.data));
@@ -25,27 +27,27 @@ export default function AdminCategoriesPage() {
       load();
     } catch (e: unknown) {
       const msg = (e as { response?: { data?: { detail?: string } } })?.response?.data?.detail;
-      setError(msg ?? "Failed to create category.");
+      setError(msg ?? t.admin.failedCreateCategory);
     } finally { setLoading(false); }
   };
 
   return (
     <div className="max-w-2xl">
-      <h1 className="font-serif text-3xl font-bold text-ink mb-8">Categories</h1>
+      <h1 className="font-serif text-3xl font-bold text-ink mb-8">{t.admin.categories}</h1>
       <Card className="mb-8">
         <CardBody>
-          <h2 className="font-medium text-ink mb-4">Add Category</h2>
+          <h2 className="font-medium text-ink mb-4">{t.admin.addCategory}</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <Input label="Name" error={errors.name?.message} {...register("name", { required: "Required" })} />
-            <Input label="Description (optional)" {...register("description")} />
+            <Input label={t.admin.name} error={errors.name?.message} {...register("name", { required: "Required" })} />
+            <Input label={t.admin.description} {...register("description")} />
             {error && <p className="text-sm text-red-500">{error}</p>}
-            <Button type="submit" loading={loading} size="sm">Add Category</Button>
+            <Button type="submit" loading={loading} size="sm">{t.admin.addCategory}</Button>
           </form>
         </CardBody>
       </Card>
       <div className="rounded-xl border border-ink/10 bg-white overflow-hidden">
         {categories.length === 0 ? (
-          <p className="px-6 py-8 text-center text-ink/40 text-sm">No categories yet.</p>
+          <p className="px-6 py-8 text-center text-ink/40 text-sm">{t.admin.noCategories}</p>
         ) : (
           <ul className="divide-y divide-ink/5">
             {categories.map((c) => (
