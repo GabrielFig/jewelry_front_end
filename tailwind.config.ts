@@ -6,19 +6,20 @@ const config: Config = {
     extend: {
       colors: {
         gold: {
-          DEFAULT: "#B5860D",
-          light: "#D4AF37",
-          dark: "#8B6914",
+          DEFAULT: "#BFA06A",
+          light: "#D4B896",
+          dark: "#9A7A48",
         },
         rose: {
-          DEFAULT: "#C2728A",
-          light: "#F5E4E9",
-          dark: "#9D5F73",
+          DEFAULT: "#B07A84",
+          light: "#F5E0E5",
+          dark: "#8E3F4D",
         },
-        cream: "#FAF6F1",
-        blush: "#FDF0F3",
+        teal: "#5FAF9F",
+        cream: "#F8F6F3",
+        blush: "#FAF0F2",
         ink: "#1C1917",
-        muted: "#78716C",
+        muted: "#6F6F6F",
       },
       fontFamily: {
         serif: ["var(--font-playfair)", "Georgia", "serif"],

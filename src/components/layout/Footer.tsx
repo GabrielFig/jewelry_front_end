@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Gem } from "lucide-react";
+import Image from "next/image";
 import { useT } from "@/hooks/useT";
 
 function InstagramIcon({ className }: { className?: string }) {
@@ -31,15 +31,18 @@ export function Footer() {
   const t = useT();
 
   return (
-    <footer className="border-t border-ink/8 bg-[#1C0F0A] text-stone-300 mt-0">
+    <footer className="border-t border-ink/8 bg-[#180A0D] text-stone-300 mt-0">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         {/* Brand */}
         <div className="sm:col-span-2 md:col-span-1">
-          <div className="flex items-center gap-2 mb-3">
-            <Gem className="w-4 h-4 text-gold-light" />
-            <span className="font-serif text-xl font-bold tracking-[0.2em] text-white">
-              {t.brand}
-            </span>
+          <div className="mb-3">
+            <Image
+              src="/images/logo-2x.png"
+              alt="Caritz - Joyería de Diseño"
+              width={160}
+              height={120}
+              className="object-contain h-16 w-auto"
+            />
           </div>
           <p className="text-sm text-stone-400 leading-relaxed max-w-xs">{t.footer.tagline}</p>
           <div className="mt-5 h-px w-10 bg-gold-light/30" />

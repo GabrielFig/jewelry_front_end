@@ -26,7 +26,7 @@ export function ProductCard({ product }: { product: Product }) {
     MATERIAL_STYLES.default;
 
   return (
-    <div className="group flex flex-col rounded-2xl border border-ink/8 bg-white overflow-hidden hover:shadow-[0_8px_30px_rgba(28,15,10,0.12)] transition-all duration-300 cursor-pointer">
+    <div className="group flex flex-col rounded-2xl border border-ink/8 bg-white overflow-hidden hover:shadow-[0_8px_30px_rgba(142,63,77,0.12)] transition-all duration-300 cursor-pointer">
       {/* Image area */}
       <Link href={`/products/${product.sku}`} className="block relative">
         <div
@@ -80,7 +80,7 @@ export function ProductCard({ product }: { product: Product }) {
                 currency: product.price_currency,
               })
             }
-            className="flex items-center gap-1.5 rounded-full bg-gold-light hover:bg-gold px-4 py-1.5 text-xs font-semibold text-ink hover:shadow-[0_0_12px_rgba(212,175,55,0.4)] transition-all duration-200 cursor-pointer"
+            className="flex items-center gap-1.5 rounded-full bg-gold-light hover:bg-gold px-4 py-1.5 text-xs font-semibold text-ink hover:shadow-[0_0_12px_rgba(191,160,106,0.45)] transition-all duration-200 cursor-pointer"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             {t.productDetail.addToCart}
