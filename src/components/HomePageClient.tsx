@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Gem, Sparkles, Shield, Truck, Instagram, Facebook } from "lucide-react";
 import { ProductCard } from "@/components/features/ProductCard";
 import { useT } from "@/hooks/useT";
@@ -59,10 +60,10 @@ export function HomePageClient({
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden bg-[#1C0F0A]">
+      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden bg-[#180A0D]">
         {/* Warm radial glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_60%_40%,rgba(194,114,138,0.18),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_20%_70%,rgba(181,134,13,0.12),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_60%_40%,rgba(142,63,77,0.22),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_20%_70%,rgba(191,160,106,0.15),transparent)]" />
 
         {/* Floating decorative rings */}
         <div className="pointer-events-none select-none">
@@ -92,12 +93,16 @@ export function HomePageClient({
 
         {/* Content */}
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-24 flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="h-px w-8 bg-gold-light/60" />
-            <p className="text-[11px] tracking-[0.45em] uppercase text-gold-light font-medium">
-              {t.home.badge}
-            </p>
-            <span className="h-px w-8 bg-gold-light/60" />
+          {/* Brand logo — large hero variant */}
+          <div className="mb-8">
+            <Image
+              src="/images/logo-2x.png"
+              alt="Caritz - Joyería de Diseño"
+              width={320}
+              height={240}
+              priority
+              className="object-contain w-48 md:w-64 lg:w-80 h-auto mx-auto"
+            />
           </div>
 
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] text-white mb-6 max-w-3xl">
@@ -113,7 +118,7 @@ export function HomePageClient({
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/products"
-              className="inline-block bg-gold-light hover:bg-gold text-ink font-semibold px-10 py-3.5 rounded-full transition-all duration-300 tracking-wider text-sm hover:shadow-[0_0_24px_rgba(212,175,55,0.4)] cursor-pointer"
+              className="inline-block bg-gold-light hover:bg-gold text-ink font-semibold px-10 py-3.5 rounded-full transition-all duration-300 tracking-wider text-sm hover:shadow-[0_0_24px_rgba(191,160,106,0.45)] cursor-pointer"
             >
               {t.home.exploreCta}
             </Link>
@@ -257,7 +262,7 @@ export function HomePageClient({
       </section>
 
       {/* ── Value Props ──────────────────────────────────────────────────── */}
-      <section className="bg-[#1C0F0A] py-20">
+      <section className="bg-[#180A0D] py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             {valueProps.map(({ Icon, title, desc }, i) => (
@@ -307,7 +312,7 @@ export function HomePageClient({
               />
               <button
                 type="submit"
-                className="rounded-full bg-gold-light hover:bg-gold text-ink font-semibold px-7 py-3 text-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.35)] cursor-pointer whitespace-nowrap"
+                className="rounded-full bg-gold-light hover:bg-gold text-ink font-semibold px-7 py-3 text-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(191,160,106,0.4)] cursor-pointer whitespace-nowrap"
               >
                 {t.home.newsletterCta}
               </button>

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { ShoppingBag, User, LogOut, LayoutDashboard, ChevronDown, Menu, X, Gem } from "lucide-react";
+import Image from "next/image";
+import { ShoppingBag, User, LogOut, LayoutDashboard, ChevronDown, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCartStore } from "@/store/cart.store";
@@ -55,20 +56,22 @@ export function Header() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link
-            href="/"
-            className={cn(
-              "flex items-center gap-2 transition-colors duration-300 cursor-pointer",
-              transparent ? "text-white" : "text-ink"
-            )}
-          >
-            <Gem
+          <Link href="/" className="cursor-pointer flex items-center">
+            <div
               className={cn(
-                "w-4 h-4 transition-colors duration-300",
-                transparent ? "text-gold-light" : "text-gold"
+                "rounded-md transition-all duration-300",
+                transparent ? "bg-white/15 px-2 py-1" : ""
               )}
-            />
-            <span className="font-serif text-xl font-bold tracking-[0.2em]">{t.brand}</span>
+            >
+              <Image
+                src="/images/logo.png"
+                alt="Caritz - Joyería de Diseño"
+                width={120}
+                height={60}
+                priority
+                className="object-contain h-10 w-auto"
+              />
+            </div>
           </Link>
 
           {/* Desktop nav */}
