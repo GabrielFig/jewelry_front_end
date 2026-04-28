@@ -5,21 +5,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Nueva paleta primaria
+        burgundy: {
+          DEFAULT: "#6E1F3A",
+          dark: "#9B3555",
+        },
+        sage: {
+          DEFAULT: "#7A8C72",
+          light: "#E8EDE4",
+        },
         gold: {
-          DEFAULT: "#BFA06A",
-          light: "#D4B896",
+          DEFAULT: "#B89060",
+          light: "#C4A882",
           dark: "#9A7A48",
         },
+        cream: {
+          DEFAULT: "#F5F2EC",
+          dark: "#EDE5D8",
+        },
+        ink: "#1A1018",
+        muted: "#7A6A5A",
+        // Compatibilidad con páginas fuera de scope (admin, auth, cart)
         rose: {
           DEFAULT: "#B07A84",
           light: "#F5E0E5",
           dark: "#8E3F4D",
         },
-        teal: "#5FAF9F",
-        cream: "#F8F6F3",
         blush: "#FAF0F2",
-        ink: "#1C1917",
-        muted: "#6F6F6F",
+        teal: "#5FAF9F",
       },
       fontFamily: {
         serif: ["var(--font-playfair)", "Georgia", "serif"],
