@@ -18,7 +18,8 @@ const schema = z.object({
   price_currency: z.string().default("USD"),
   category_id: z.string().min(1, "Select a category"),
   attributes: z.string().optional(),
-  image_url: z.string().optional(),
+  // CN-012: require https:// URL to prevent javascript:, data:, and internal IP schemes
+  image_url: z.string().url().startsWith("https://").optional().or(z.literal("")),
 });
 type FormData = z.infer<typeof schema>;
 

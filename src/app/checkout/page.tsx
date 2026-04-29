@@ -51,7 +51,6 @@ function CheckoutForm() {
         if (!found) throw new Error("Could not create customer record");
         customerId = found.id;
       }
-      await ordersApi.create(customerId);
       const order = (await ordersApi.create(customerId)).data;
       for (const item of items) {
         await ordersApi.addItem(order.id, { sku: item.sku, quantity: item.quantity });

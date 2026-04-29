@@ -12,7 +12,9 @@ import type { Order } from "@/types";
 function OrdersContent() {
   const { user } = useAuthStore();
   const params = useSearchParams();
-  const successId = params.get("success");
+  // CN-014: validate UUID format before rendering to prevent arbitrary string injection
+  const rawSuccess = params.get("success");
+  const successId = rawSuccess && /^[0-9a-f-]{36}$/i.test(rawSuccess) ? rawSuccess : null;
   const t = useT();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
