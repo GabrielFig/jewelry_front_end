@@ -32,7 +32,7 @@ export function Footer() {
   const t = useT();
 
   return (
-    <footer className="bg-ink text-stone-400">
+    <footer className="bg-ink text-cream/50">
       {/* Main grid */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
 
@@ -47,18 +47,18 @@ export function Footer() {
               className="object-contain h-16 w-auto"
             />
           </div>
-          <p className="text-xs text-stone-500 leading-relaxed max-w-xs mb-1">
+          <p className="text-xs text-cream/40 leading-relaxed max-w-xs mb-1">
             {t.footer.tagline}
           </p>
-          <p className="text-[10px] text-stone-600 tracking-widest mb-5">{t.footer.madeInMexico} 🇲🇽</p>
+          <p className="text-[10px] text-cream/30 tracking-widest mb-5">{t.footer.madeInMexico} 🇲🇽</p>
           <div className="flex items-center gap-3">
-            <a href="#" aria-label="Instagram" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-stone-500 hover:text-gold hover:border-gold/40 transition-all duration-200 cursor-pointer">
+            <a href="#" aria-label="Instagram" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-cream/40 hover:text-gold hover:border-gold/40 transition-all duration-200 cursor-pointer">
               <InstagramIcon className="w-4 h-4" />
             </a>
-            <a href="#" aria-label="Facebook" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-stone-500 hover:text-gold hover:border-gold/40 transition-all duration-200 cursor-pointer">
+            <a href="#" aria-label="Facebook" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-cream/40 hover:text-gold hover:border-gold/40 transition-all duration-200 cursor-pointer">
               <FacebookIcon className="w-4 h-4" />
             </a>
-            <a href="#" aria-label="Pinterest" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-stone-500 hover:text-gold hover:border-gold/40 transition-all duration-200 cursor-pointer">
+            <a href="#" aria-label="Pinterest" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-cream/40 hover:text-gold hover:border-gold/40 transition-all duration-200 cursor-pointer">
               <PinterestIcon className="w-4 h-4" />
             </a>
           </div>
@@ -66,7 +66,7 @@ export function Footer() {
 
         {/* Col 2 — Colecciones */}
         <div>
-          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-stone-500 mb-4">
+          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-cream/35 mb-4">
             {t.footer.shop}
           </h4>
           <ul className="space-y-2.5">
@@ -76,7 +76,7 @@ export function Footer() {
               { href: "/cart", label: t.footer.shoppingCart },
             ].map(({ href, label }) => (
               <li key={href}>
-                <Link href={href} className="text-sm text-stone-500 hover:text-gold-light transition-colors cursor-pointer">
+                <Link href={href} className="text-sm text-cream/45 hover:text-gold-light transition-colors cursor-pointer">
                   {label}
                 </Link>
               </li>
@@ -86,7 +86,7 @@ export function Footer() {
 
         {/* Col 3 — Información */}
         <div>
-          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-stone-500 mb-4">
+          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-cream/35 mb-4">
             {t.footer.information}
           </h4>
           <ul className="space-y-2.5">
@@ -96,7 +96,7 @@ export function Footer() {
               { href: "#",  label: t.footer.jewelryCare },
             ].map(({ href, label }) => (
               <li key={label}>
-                <Link href={href} className="text-sm text-stone-500 hover:text-gold-light transition-colors cursor-pointer">
+                <Link href={href} className="text-sm text-cream/45 hover:text-gold-light transition-colors cursor-pointer">
                   {label}
                 </Link>
               </li>
@@ -106,7 +106,7 @@ export function Footer() {
 
         {/* Col 4 — Ayuda */}
         <div>
-          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-stone-500 mb-4">
+          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-cream/35 mb-4">
             {t.footer.help}
           </h4>
           <ul className="space-y-2.5">
@@ -118,7 +118,7 @@ export function Footer() {
               { href: "#", label: t.footer.faq },
             ].map(({ href, label }) => (
               <li key={label}>
-                <Link href={href} className="text-sm text-stone-500 hover:text-gold-light transition-colors cursor-pointer">
+                <Link href={href} className="text-sm text-cream/45 hover:text-gold-light transition-colors cursor-pointer">
                   {label}
                 </Link>
               </li>
@@ -130,7 +130,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-white/6 py-5 px-4 sm:px-6">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-stone-600">
+          <p className="text-xs text-cream/30">
             © {new Date().getFullYear()} {t.brand}. {t.footer.rights}
           </p>
           <div className="flex items-center gap-5">
@@ -138,7 +138,7 @@ export function Footer() {
               { href: "#", label: t.footer.privacyPolicy },
               { href: "#", label: t.footer.terms },
             ].map(({ href, label }) => (
-              <Link key={label} href={href} className="text-xs text-stone-600 hover:text-stone-400 transition-colors cursor-pointer">
+              <Link key={label} href={href} className="text-xs text-cream/30 hover:text-cream/60 transition-colors cursor-pointer">
                 {label}
               </Link>
             ))}
