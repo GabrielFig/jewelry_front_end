@@ -87,14 +87,14 @@ export function Header() {
                   "text-sm transition-colors duration-200 relative group cursor-pointer",
                   transparent
                     ? "text-white/80 hover:text-white"
-                    : "text-ink/70 hover:text-rose"
+                    : "text-ink/70 hover:text-burgundy"
                 )}
               >
                 {label}
                 <span
                   className={cn(
                     "absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300",
-                    transparent ? "bg-gold-light" : "bg-rose"
+                    transparent ? "bg-gold-light" : "bg-burgundy"
                   )}
                 />
               </Link>
@@ -110,7 +110,7 @@ export function Header() {
                 "text-[10px] font-bold tracking-widest border rounded px-2 py-1 transition-all duration-200 cursor-pointer",
                 transparent
                   ? "border-white/25 text-white/60 hover:text-white hover:border-white/50"
-                  : "border-ink/15 text-ink/50 hover:text-gold hover:border-gold/40"
+                  : "border-ink/15 text-ink/50 hover:text-sage hover:border-sage/40"
               )}
               aria-label="Switch language"
             >
@@ -122,13 +122,13 @@ export function Header() {
               href="/cart"
               className={cn(
                 "relative transition-colors duration-200 cursor-pointer",
-                transparent ? "text-white/70 hover:text-white" : "text-ink/70 hover:text-rose"
+                transparent ? "text-white/70 hover:text-white" : "text-ink/70 hover:text-burgundy"
               )}
               aria-label="Shopping cart"
             >
               <ShoppingBag className="w-5 h-5" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-rose text-white text-[10px] flex items-center justify-center font-bold">
+                <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-burgundy text-white text-[10px] flex items-center justify-center font-bold">
                   {totalItems}
                 </span>
               )}
@@ -142,7 +142,7 @@ export function Header() {
                     onClick={() => setUserMenuOpen((o) => !o)}
                     className={cn(
                       "flex items-center gap-1 text-sm transition-colors duration-200 cursor-pointer",
-                      transparent ? "text-white/70 hover:text-white" : "text-ink/70 hover:text-rose"
+                      transparent ? "text-white/70 hover:text-white" : "text-ink/70 hover:text-burgundy"
                     )}
                   >
                     <User className="w-5 h-5" />
@@ -155,24 +155,24 @@ export function Header() {
                       <Link
                         href="/account"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-ink hover:bg-blush transition-colors cursor-pointer"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-ink hover:bg-cream-dark/60 transition-colors cursor-pointer"
                       >
-                        <User className="w-4 h-4 text-rose" />
+                        <User className="w-4 h-4 text-sage" />
                         {t.nav.myAccount}
                       </Link>
                       <Link
                         href="/account/orders"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-ink hover:bg-blush transition-colors cursor-pointer"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-ink hover:bg-cream-dark/60 transition-colors cursor-pointer"
                       >
-                        <ShoppingBag className="w-4 h-4 text-rose" />
+                        <ShoppingBag className="w-4 h-4 text-sage" />
                         {t.nav.myOrders}
                       </Link>
                       {user.role === "admin" && (
                         <Link
                           href="/admin"
                           onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gold font-medium hover:bg-blush transition-colors cursor-pointer"
+                          className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gold font-medium hover:bg-cream-dark/60 transition-colors cursor-pointer"
                         >
                           <LayoutDashboard className="w-4 h-4" />
                           {t.nav.adminPanel}
@@ -194,7 +194,7 @@ export function Header() {
                   href="/auth/login"
                   className={cn(
                     "text-sm font-medium transition-colors duration-200 cursor-pointer",
-                    transparent ? "text-white/80 hover:text-white" : "text-ink hover:text-rose"
+                    transparent ? "text-white/80 hover:text-white" : "text-ink hover:text-sage"
                   )}
                 >
                   {t.nav.signIn}
@@ -227,13 +227,13 @@ export function Header() {
           <nav className="absolute top-16 left-0 right-0 bg-white shadow-xl border-t border-ink/8 py-4 px-6 flex flex-col gap-1">
             <Link
               href="/products"
-              className="py-3 text-ink font-medium border-b border-ink/5 hover:text-rose transition-colors cursor-pointer"
+              className="py-3 text-ink font-medium border-b border-ink/5 hover:text-burgundy transition-colors cursor-pointer"
             >
               {t.nav.collections}
             </Link>
             <Link
               href="/products?category_id="
-              className="py-3 text-ink font-medium border-b border-ink/5 hover:text-rose transition-colors cursor-pointer"
+              className="py-3 text-ink font-medium border-b border-ink/5 hover:text-burgundy transition-colors cursor-pointer"
             >
               {t.nav.newArrivals}
             </Link>
@@ -241,13 +241,13 @@ export function Header() {
               <>
                 <Link
                   href="/account"
-                  className="py-3 text-ink font-medium border-b border-ink/5 hover:text-rose transition-colors cursor-pointer"
+                  className="py-3 text-ink font-medium border-b border-ink/5 hover:text-burgundy transition-colors cursor-pointer"
                 >
                   {t.nav.myAccount}
                 </Link>
                 <Link
                   href="/account/orders"
-                  className="py-3 text-ink font-medium border-b border-ink/5 hover:text-rose transition-colors cursor-pointer"
+                  className="py-3 text-ink font-medium border-b border-ink/5 hover:text-burgundy transition-colors cursor-pointer"
                 >
                   {t.nav.myOrders}
                 </Link>
@@ -269,7 +269,7 @@ export function Header() {
             ) : (
               <Link
                 href="/auth/login"
-                className="py-3 text-ink font-medium hover:text-rose transition-colors cursor-pointer"
+                className="py-3 text-ink font-medium hover:text-burgundy transition-colors cursor-pointer"
               >
                 {t.nav.signIn}
               </Link>
