@@ -1,3 +1,4 @@
+// src/components/layout/Footer.tsx
 "use client";
 import Link from "next/link";
 import Image from "next/image";
@@ -31,11 +32,13 @@ export function Footer() {
   const t = useT();
 
   return (
-    <footer className="border-t border-ink/8 bg-[#180A0D] text-stone-300 mt-0">
+    <footer className="bg-ink text-stone-400">
+      {/* Main grid */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-        {/* Brand */}
+
+        {/* Col 1 — Marca */}
         <div className="sm:col-span-2 md:col-span-1">
-          <div className="mb-3">
+          <div className="mb-4">
             <Image
               src="/images/logo-2x.png"
               alt="Caritz - Joyería de Diseño"
@@ -44,101 +47,103 @@ export function Footer() {
               className="object-contain h-16 w-auto"
             />
           </div>
-          <p className="text-sm text-stone-400 leading-relaxed max-w-xs">{t.footer.tagline}</p>
-          <div className="mt-5 h-px w-10 bg-gold-light/30" />
-        </div>
-
-        {/* Shop */}
-        <div>
-          <h4 className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-4">
-            {t.footer.shop}
-          </h4>
-          <ul className="space-y-2.5">
-            <li>
-              <Link
-                href="/products"
-                className="text-sm text-stone-400 hover:text-gold-light transition-colors cursor-pointer"
-              >
-                {t.footer.allCollections}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/cart"
-                className="text-sm text-stone-400 hover:text-gold-light transition-colors cursor-pointer"
-              >
-                {t.footer.shoppingCart}
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Account */}
-        <div>
-          <h4 className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-4">
-            {t.footer.account}
-          </h4>
-          <ul className="space-y-2.5">
-            <li>
-              <Link
-                href="/auth/login"
-                className="text-sm text-stone-400 hover:text-gold-light transition-colors cursor-pointer"
-              >
-                {t.footer.signIn}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/auth/register"
-                className="text-sm text-stone-400 hover:text-gold-light transition-colors cursor-pointer"
-              >
-                {t.footer.createAccount}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/account/orders"
-                className="text-sm text-stone-400 hover:text-gold-light transition-colors cursor-pointer"
-              >
-                {t.footer.myOrders}
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Social */}
-        <div>
-          <h4 className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-4">
-            {t.footer.followUs}
-          </h4>
+          <p className="text-xs text-stone-500 leading-relaxed max-w-xs mb-1">
+            {t.footer.tagline}
+          </p>
+          <p className="text-[10px] text-stone-600 tracking-widest mb-5">{t.footer.madeInMexico} 🇲🇽</p>
           <div className="flex items-center gap-3">
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-stone-400 hover:text-gold-light hover:border-gold-light/40 transition-all duration-200 cursor-pointer"
-            >
+            <a href="#" aria-label="Instagram" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-stone-500 hover:text-gold hover:border-gold/40 transition-all duration-200 cursor-pointer">
               <InstagramIcon className="w-4 h-4" />
             </a>
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-stone-400 hover:text-gold-light hover:border-gold-light/40 transition-all duration-200 cursor-pointer"
-            >
+            <a href="#" aria-label="Facebook" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-stone-500 hover:text-gold hover:border-gold/40 transition-all duration-200 cursor-pointer">
               <FacebookIcon className="w-4 h-4" />
             </a>
-            <a
-              href="#"
-              aria-label="Pinterest"
-              className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-stone-400 hover:text-gold-light hover:border-gold-light/40 transition-all duration-200 cursor-pointer"
-            >
+            <a href="#" aria-label="Pinterest" className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-stone-500 hover:text-gold hover:border-gold/40 transition-all duration-200 cursor-pointer">
               <PinterestIcon className="w-4 h-4" />
             </a>
           </div>
         </div>
+
+        {/* Col 2 — Colecciones */}
+        <div>
+          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-stone-500 mb-4">
+            {t.footer.shop}
+          </h4>
+          <ul className="space-y-2.5">
+            {[
+              { href: "/products", label: t.footer.allCollections },
+              { href: "/products?category_id=", label: t.nav.newArrivals },
+              { href: "/cart", label: t.footer.shoppingCart },
+            ].map(({ href, label }) => (
+              <li key={href}>
+                <Link href={href} className="text-sm text-stone-500 hover:text-gold-light transition-colors cursor-pointer">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Col 3 — Información */}
+        <div>
+          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-stone-500 mb-4">
+            {t.footer.information}
+          </h4>
+          <ul className="space-y-2.5">
+            {[
+              { href: "/",  label: t.footer.storyLink },
+              { href: "#",  label: t.footer.sizingGuide },
+              { href: "#",  label: t.footer.jewelryCare },
+            ].map(({ href, label }) => (
+              <li key={label}>
+                <Link href={href} className="text-sm text-stone-500 hover:text-gold-light transition-colors cursor-pointer">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Col 4 — Ayuda */}
+        <div>
+          <h4 className="text-[10px] font-semibold uppercase tracking-widest text-stone-500 mb-4">
+            {t.footer.help}
+          </h4>
+          <ul className="space-y-2.5">
+            {[
+              { href: "#", label: t.footer.shipping },
+              { href: "#", label: t.footer.returns },
+              { href: "#", label: t.footer.warranty },
+              { href: "#", label: t.footer.contact },
+              { href: "#", label: t.footer.faq },
+            ].map(({ href, label }) => (
+              <li key={label}>
+                <Link href={href} className="text-sm text-stone-500 hover:text-gold-light transition-colors cursor-pointer">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <div className="border-t border-white/8 py-5 text-center text-xs text-stone-600">
-        © {new Date().getFullYear()} {t.brand}. {t.footer.rights}
+      {/* Bottom bar */}
+      <div className="border-t border-white/6 py-5 px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-stone-600">
+            © {new Date().getFullYear()} {t.brand}. {t.footer.rights}
+          </p>
+          <div className="flex items-center gap-5">
+            {[
+              { href: "#", label: t.footer.privacyPolicy },
+              { href: "#", label: t.footer.terms },
+            ].map(({ href, label }) => (
+              <Link key={label} href={href} className="text-xs text-stone-600 hover:text-stone-400 transition-colors cursor-pointer">
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </footer>
   );
