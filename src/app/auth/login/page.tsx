@@ -44,7 +44,13 @@ function LoginForm() {
       const r = await authApi.login(data);
       const { access_token, user } = r.data as AuthResponse;
       login(user, access_token);
-      router.push(params.get("next") ?? (user.role === "admin" ? "/admin" : "/"));
+      // CN-004: validate ?next= to prevent open redirect to external domains
+      const rawNext = params.get("next") ?? "";
+      const safePath =
+        rawNext.startsWith("/") && !rawNext.startsWith("//") && !rawNext.includes(":")
+          ? rawNext
+          : user.role === "admin" ? "/admin" : "/";
+      router.push(safePath);
     } catch {
       setError(t.auth.invalidCredentials);
     } finally {
