@@ -1,8 +1,9 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+// CN-013: removed localhost fallback — set NEXT_PUBLIC_API_URL in .env.local
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: { "Content-Type": "application/json" },
 });
 
@@ -12,6 +13,18 @@ api.interceptors.request.use((config) => {
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
+
+// CN-010: normalize errors — strip full Axios config (including auth headers) before propagating
+api.interceptors.response.use(
+  (res) => res,
+  (error: { response?: { status?: number; data?: { detail?: string } }; message?: string }) => {
+    const normalized = {
+      message: error.response?.data?.detail ?? error.message ?? "Request failed",
+      status: error.response?.status,
+    };
+    return Promise.reject(normalized);
+  }
+);
 
 export default api;
 

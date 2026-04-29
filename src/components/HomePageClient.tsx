@@ -1,40 +1,24 @@
+// src/components/HomePageClient.tsx
 "use client";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { Gem, Sparkles, Shield, Truck, Instagram, Facebook } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Sparkles, Shield, Truck } from "lucide-react";
 import { ProductCard } from "@/components/features/ProductCard";
 import { useT } from "@/hooks/useT";
 import type { Product, Category } from "@/types";
 
-const CATEGORY_GRADIENTS = [
-  "from-rose/30 via-rose-light to-cream",
-  "from-gold/20 via-amber-50 to-cream",
-  "from-stone-200 via-stone-100 to-cream",
-  "from-rose-light via-blush to-cream",
-  "from-amber-100 via-yellow-50 to-cream",
-  "from-stone-100 via-rose-light/50 to-cream",
-];
-
-const VALUE_ICONS = [Sparkles, Shield, Truck];
-
 export function HomePageClient({
   products,
-  categories,
+  categories: _categories,
 }: {
   products: Product[];
   categories: Category[];
 }) {
   const t = useT();
-  const [email, setEmail] = useState("");
+  const [email, setEmail]         = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
-  const valueProps = [
-    { Icon: VALUE_ICONS[0], title: t.home.ethicallySourced, desc: t.home.ethicallySourcedDesc },
-    { Icon: VALUE_ICONS[1], title: t.home.lifetimeGuarantee, desc: t.home.lifetimeGuaranteeDesc },
-    { Icon: VALUE_ICONS[2], title: t.home.freeShipping, desc: t.home.freeShippingDesc },
-  ];
-
-  // Scroll-reveal observer
   useEffect(() => {
     if (typeof window === "undefined") return;
     const observer = new IntersectionObserver(
@@ -56,133 +40,98 @@ export function HomePageClient({
     if (email.trim()) setSubscribed(true);
   };
 
+  const valueProps = [
+    { Icon: Sparkles, title: t.home.ethicallySourced,  desc: t.home.ethicallySourcedDesc },
+    { Icon: Shield,   title: t.home.lifetimeGuarantee, desc: t.home.lifetimeGuaranteeDesc },
+    { Icon: Truck,    title: t.home.freeShipping,       desc: t.home.freeShippingDesc },
+  ];
+
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden bg-[#1C0F0A]">
-        {/* Warm radial glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_60%_40%,rgba(194,114,138,0.18),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_20%_70%,rgba(181,134,13,0.12),transparent)]" />
+      <section className="relative bg-cream py-20 md:py-28 text-center border-b border-burgundy/6 overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-burgundy to-sage" />
 
-        {/* Floating decorative rings */}
-        <div className="pointer-events-none select-none">
-          <div className="absolute top-[12%] right-[6%] w-72 h-72 rounded-full border border-gold-light/15 animate-float" />
-          <div className="absolute top-[18%] right-[9%] w-52 h-52 rounded-full border border-rose/20 animate-float-slow" />
-          <div className="absolute bottom-[15%] left-[4%] w-96 h-96 rounded-full border border-gold-light/10 animate-float-slow" />
-          <div className="absolute bottom-[20%] left-[7%] w-64 h-64 rounded-full border border-rose/10 animate-float" />
-          {/* Gem SVG accents */}
-          <svg
-            className="absolute top-[28%] right-[18%] w-5 h-5 text-gold-light/50 animate-shimmer"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <polygon points="12,2 20,9 20,15 12,22 4,15 4,9" />
-          </svg>
-          <svg
-            className="absolute top-[55%] left-[22%] w-3 h-3 text-rose/40 animate-shimmer"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <polygon points="12,2 22,8 18,20 6,20 2,8" />
-          </svg>
-          <div className="absolute top-[40%] left-[12%] w-1.5 h-1.5 rounded-full bg-gold-light/40 animate-shimmer" />
-          <div className="absolute top-[22%] left-[35%] w-1 h-1 rounded-full bg-rose/30 animate-shimmer" />
-          <div className="absolute bottom-[35%] right-[28%] w-1.5 h-1.5 rounded-full bg-gold-light/30 animate-shimmer" />
+        <div className="reveal flex items-center justify-center gap-4 mb-8 opacity-40">
+          <div className="h-px w-20 bg-burgundy" />
+          <div className="w-1.5 h-1.5 rounded-full bg-gold" />
+          <div className="w-1 h-1 rounded-full bg-sage" />
+          <div className="w-1.5 h-1.5 rounded-full bg-gold" />
+          <div className="h-px w-20 bg-burgundy" />
         </div>
 
-        {/* Content */}
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-24 flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="h-px w-8 bg-gold-light/60" />
-            <p className="text-[11px] tracking-[0.45em] uppercase text-gold-light font-medium">
-              {t.home.badge}
+        <div className="reveal reveal-delay-1 inline-block border border-burgundy/10 rounded-2xl px-10 py-6 mb-5 bg-gradient-to-br from-cream via-cream to-cream-dark/50">
+          <Image
+            src="/images/logo-2x.png"
+            alt="Caritz - Joyería de Diseño"
+            width={320}
+            height={240}
+            priority
+            className="object-contain w-40 md:w-56 lg:w-72 h-auto mx-auto"
+          />
+        </div>
+
+        <p className="reveal reveal-delay-2 text-[10px] tracking-[0.45em] uppercase text-muted mb-5">
+          By Beatriz Figueroa
+        </p>
+
+        <p className="reveal reveal-delay-2 max-w-md mx-auto text-muted text-base md:text-lg leading-relaxed mb-8 px-4">
+          {t.home.heroDesc}
+        </p>
+
+        <div className="reveal reveal-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            href="/products"
+            className="inline-block border-[1.5px] border-burgundy text-burgundy font-medium px-10 py-3 rounded-full text-sm tracking-wider hover:bg-burgundy hover:text-cream transition-all duration-300 cursor-pointer"
+          >
+            {t.home.exploreCta}
+          </Link>
+          <Link
+            href="#story"
+            className="inline-block border border-muted/30 text-muted font-medium px-10 py-3 rounded-full text-sm tracking-wider hover:border-muted/60 hover:text-ink transition-all duration-300 cursor-pointer"
+          >
+            {t.home.storyCta}
+          </Link>
+        </div>
+
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-sage to-burgundy" />
+      </section>
+
+      {/* ── Quote section ───────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-14 md:py-20">
+        <div className="reveal flex flex-col md:flex-row items-start md:items-center gap-8">
+          <div className="w-1 self-stretch rounded-full bg-gradient-to-b from-burgundy to-sage flex-shrink-0 min-h-[72px]" />
+          <div className="flex-1">
+            <p className="text-[9px] tracking-[0.3em] uppercase text-sage mb-3">
+              ✦ {t.home.storyBadge}
             </p>
-            <span className="h-px w-8 bg-gold-light/60" />
+            <blockquote className="font-serif text-2xl md:text-3xl italic text-burgundy leading-relaxed mb-3">
+              &ldquo;{t.home.storyTitle}&rdquo;
+            </blockquote>
+            <p className="text-sm text-muted tracking-wide">— Beatriz Figueroa, Fundadora de Caritz</p>
           </div>
-
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] text-white mb-6 max-w-3xl">
-            {t.home.heroTitle1}
-            <br />
-            <span className="text-gold-light italic">{t.home.heroTitle2}</span>
-          </h1>
-
-          <p className="max-w-md text-stone-300/80 text-base md:text-lg mb-10 leading-relaxed">
-            {t.home.heroDesc}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/products"
-              className="inline-block bg-gold-light hover:bg-gold text-ink font-semibold px-10 py-3.5 rounded-full transition-all duration-300 tracking-wider text-sm hover:shadow-[0_0_24px_rgba(212,175,55,0.4)] cursor-pointer"
-            >
-              {t.home.exploreCta}
-            </Link>
-            <Link
-              href="#story"
-              className="inline-block border border-white/25 hover:border-gold-light/60 text-white/80 hover:text-gold-light font-medium px-10 py-3.5 rounded-full transition-all duration-300 tracking-wider text-sm cursor-pointer"
-            >
-              {t.home.storyCta}
-            </Link>
-          </div>
-
-          {/* Scroll cue */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
-            <span className="text-[10px] tracking-widest text-white uppercase">scroll</span>
-            <div className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent" />
+          <div className="hidden md:flex flex-col items-center gap-3 p-5 border border-burgundy/10 rounded-xl bg-white flex-shrink-0">
+            <span className="text-3xl opacity-40 select-none">🌹</span>
+            <div className="h-px w-6 bg-gold" />
+            <p className="text-[9px] tracking-[0.15em] text-muted uppercase text-center leading-relaxed">
+              Hecha en México<br />100% Artesanal
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ── Categories ──────────────────────────────────────────────────── */}
-      {categories.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 py-20">
-          <div className="reveal text-center mb-12">
-            <p className="text-[11px] tracking-[0.4em] uppercase text-rose font-medium mb-2">
-              {t.home.shopByCategory}
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">
-              {t.home.shopByCategory}
-            </h2>
-            <div className="mx-auto mt-4 h-px w-16 bg-gradient-to-r from-transparent via-gold-light to-transparent" />
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {categories.map((cat, i) => (
-              <Link
-                key={cat.id}
-                href={`/products?category_id=${cat.id}`}
-                className={`reveal reveal-delay-${Math.min(i + 1, 4)} group relative flex flex-col items-center justify-end gap-3 rounded-2xl overflow-hidden bg-gradient-to-br ${CATEGORY_GRADIENTS[i % CATEGORY_GRADIENTS.length]} p-6 pt-12 border border-ink/5 hover:border-gold/30 hover:shadow-lg transition-all duration-300 cursor-pointer min-h-[160px]`}
-              >
-                <div className="absolute top-5 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center border border-gold/20 group-hover:border-gold/50 transition-colors duration-300 shadow-sm">
-                  <Gem className="w-4 h-4 text-gold group-hover:text-gold-dark transition-colors duration-300" />
-                </div>
-                <span className="font-serif font-semibold text-ink group-hover:text-rose-dark transition-colors text-center leading-tight">
-                  {cat.name}
-                </span>
-                <span className="text-[10px] tracking-widest text-muted/70 uppercase group-hover:text-rose transition-colors duration-200">
-                  {t.home.exploreCta.split(" ")[0]} →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
       {/* ── Featured Products ────────────────────────────────────────────── */}
-      <section className="bg-blush/40 py-20">
+      <section className="bg-cream-dark/30 py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="reveal flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-12">
+          <div className="reveal flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-10">
             <div>
-              <p className="text-[11px] tracking-[0.4em] uppercase text-rose font-medium mb-2">
-                {t.home.badge}
-              </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">
-                {t.home.featuredPieces}
-              </h2>
+              <p className="text-[9px] tracking-[0.4em] uppercase text-sage mb-1">{t.home.badge}</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-ink">{t.home.featuredPieces}</h2>
+              <div className="mt-3 h-px w-8 bg-gold" />
             </div>
             <Link
               href="/products"
-              className="text-sm font-medium text-gold hover:text-gold-dark transition-colors flex items-center gap-1 cursor-pointer"
+              className="text-sm text-burgundy hover:text-burgundy-dark transition-colors font-medium cursor-pointer"
             >
               {t.home.viewAll}
             </Link>
@@ -198,10 +147,10 @@ export function HomePageClient({
             </div>
           ) : (
             <div className="reveal text-center py-16 space-y-3">
-              <Gem className="mx-auto w-10 h-10 text-gold/30" />
+              <p className="text-burgundy/30 text-3xl font-serif">✦</p>
               <p className="text-muted">
                 {t.home.noProducts}{" "}
-                <Link href="/admin/products/new" className="text-gold hover:underline">
+                <Link href="/admin/products/new" className="text-burgundy hover:underline">
                   {t.home.addFirstProduct}
                 </Link>
               </p>
@@ -211,66 +160,56 @@ export function HomePageClient({
       </section>
 
       {/* ── Our Story ────────────────────────────────────────────────────── */}
-      <section id="story" className="mx-auto max-w-7xl px-4 sm:px-6 py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Text */}
-          <div className="reveal order-2 lg:order-1">
-            <p className="text-[11px] tracking-[0.45em] uppercase text-rose font-medium mb-4">
-              {t.home.storyBadge}
-            </p>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-ink mb-6 leading-tight">
+      <section id="story" className="mx-auto max-w-7xl px-4 sm:px-6 py-16 md:py-20">
+        <div className="reveal bg-burgundy rounded-2xl p-8 md:p-12 lg:p-16 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div>
+            <p className="text-[9px] tracking-[0.4em] uppercase text-sage mb-4">✦ {t.home.storyBadge}</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-cream leading-tight mb-4">
               {t.home.storyTitle}
             </h2>
-            <div className="h-px w-12 bg-gold-light mb-6" />
-            <p className="text-muted leading-relaxed text-base md:text-lg mb-8 max-w-lg">
+            <div className="h-px w-8 bg-gold mb-6" />
+            <p className="text-cream/70 leading-relaxed text-base mb-8 max-w-lg">
               {t.home.storyBody}
             </p>
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-gold-dark transition-colors cursor-pointer"
+              className="inline-block border border-sage/40 text-sage text-sm font-medium px-8 py-3 rounded-full tracking-wider hover:border-sage/70 transition-all duration-300 cursor-pointer"
             >
-              {t.home.storyCta}
-              <span className="text-base">→</span>
+              {t.home.storyCta} →
             </Link>
           </div>
 
-          {/* Decorative visual */}
-          <div className="reveal reveal-delay-2 order-1 lg:order-2 flex items-center justify-center">
-            <div className="relative w-72 h-72 md:w-80 md:h-80">
-              {/* Outer ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-gold/20 animate-float-slow" />
-              {/* Middle ring */}
-              <div className="absolute inset-8 rounded-full border border-rose/30 animate-float" />
-              {/* Inner circle */}
-              <div className="absolute inset-16 rounded-full bg-gradient-to-br from-rose-light via-blush to-cream flex items-center justify-center shadow-inner">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gold/10 to-rose/10" />
-                <Gem className="w-14 h-14 text-gold-dark/60 relative z-10" />
+          <div className="flex items-center justify-center">
+            <div className="relative w-56 h-56 md:w-64 md:h-64">
+              <div className="absolute inset-0 rounded-full border border-white/10 animate-float-slow" />
+              <div className="absolute inset-8 rounded-full border border-sage/20 animate-float" />
+              <div className="absolute inset-16 rounded-full bg-white/5 flex items-center justify-center text-5xl opacity-25 select-none">
+                🌹
               </div>
-              {/* Orbiting dots */}
-              <div className="absolute top-3 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-gold-light/60 animate-shimmer" />
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-rose/50 animate-shimmer" />
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-gold/40 animate-shimmer" />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-rose/40 animate-shimmer" />
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-gold/50 animate-shimmer" />
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-sage/40 animate-shimmer" />
+              <div className="absolute left-2 top-1/2 -translate-y-1/2 w-1 h-1 rounded-full bg-gold/30 animate-shimmer" />
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-sage/30 animate-shimmer" />
             </div>
           </div>
         </div>
       </section>
 
       {/* ── Value Props ──────────────────────────────────────────────────── */}
-      <section className="bg-[#1C0F0A] py-20">
+      <section className="py-16 border-t border-burgundy/6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {valueProps.map(({ Icon, title, desc }, i) => (
               <div
                 key={title}
-                className={`reveal reveal-delay-${i + 1} flex flex-col items-center text-center gap-4`}
+                className={`reveal reveal-delay-${i + 1} flex flex-col items-center text-center gap-4 p-6 rounded-xl border border-burgundy/6 bg-white`}
               >
-                <div className="w-14 h-14 rounded-full border border-gold-light/25 flex items-center justify-center bg-white/5">
-                  <Icon className="w-6 h-6 text-gold-light" />
+                <div className="w-12 h-12 rounded-full border border-burgundy/10 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-gold" />
                 </div>
                 <div>
-                  <h3 className="font-serif text-lg font-semibold text-white mb-1">{title}</h3>
-                  <p className="text-stone-400 text-sm leading-relaxed">{desc}</p>
+                  <h3 className="font-serif text-base text-ink mb-1">{title}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{desc}</p>
                 </div>
               </div>
             ))}
@@ -279,40 +218,45 @@ export function HomePageClient({
       </section>
 
       {/* ── Newsletter ───────────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-r from-rose-light via-blush to-rose-light/60 py-16">
-        <div className="reveal mx-auto max-w-xl px-4 sm:px-6 text-center">
-          <div className="h-px w-10 bg-gold-light/60 mx-auto mb-6" />
-          <h3 className="font-serif text-3xl font-bold text-ink mb-3">
-            {t.home.newsletterTitle}
-          </h3>
-          <p className="text-muted text-sm mb-8 leading-relaxed">{t.home.newsletterDesc}</p>
+      <section className="bg-gradient-to-br from-burgundy to-burgundy-dark py-16 md:py-20">
+        <div className="reveal mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16">
+            <div className="flex-1 text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-3 mb-4 opacity-40">
+                <div className="h-px w-8 bg-sage" />
+                <span className="text-sage text-xs">✦</span>
+                <div className="h-px w-8 bg-sage" />
+              </div>
+              <h3 className="font-serif text-2xl md:text-3xl text-cream mb-3">{t.home.newsletterTitle}</h3>
+              <p className="text-cream/60 text-sm leading-relaxed max-w-sm">{t.home.newsletterDesc}</p>
+            </div>
 
-          {subscribed ? (
-            <p className="inline-flex items-center gap-2 text-rose-dark font-semibold">
-              <Sparkles className="w-4 h-4" />
-              {t.home.newsletterSuccess}
-            </p>
-          ) : (
-            <form
-              onSubmit={handleNewsletter}
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-            >
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={t.home.newsletterPlaceholder}
-                className="flex-1 rounded-full border border-ink/15 bg-white/80 px-5 py-3 text-sm text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-gold/40 focus:border-gold/40 transition"
-              />
-              <button
-                type="submit"
-                className="rounded-full bg-gold-light hover:bg-gold text-ink font-semibold px-7 py-3 text-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,175,55,0.35)] cursor-pointer whitespace-nowrap"
-              >
-                {t.home.newsletterCta}
-              </button>
-            </form>
-          )}
+            <div className="w-full md:w-80 lg:w-96">
+              {subscribed ? (
+                <p className="text-sage font-semibold text-center flex items-center gap-2 justify-center">
+                  <Sparkles className="w-4 h-4" />
+                  {t.home.newsletterSuccess}
+                </p>
+              ) : (
+                <form onSubmit={handleNewsletter} className="flex flex-col gap-3">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder={t.home.newsletterPlaceholder}
+                    className="rounded-full bg-white/10 border border-white/20 px-5 py-3 text-sm text-cream placeholder:text-cream/40 focus:outline-none focus:ring-2 focus:ring-sage/30 focus:border-sage/40 transition"
+                  />
+                  <button
+                    type="submit"
+                    className="rounded-full bg-cream text-burgundy font-semibold px-7 py-3 text-sm tracking-wider hover:bg-cream-dark transition-all duration-300 cursor-pointer"
+                  >
+                    {t.home.newsletterCta}
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
         </div>
       </section>
     </>
